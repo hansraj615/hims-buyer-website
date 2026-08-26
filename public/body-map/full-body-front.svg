@@ -1,0 +1,5 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Full body — front">
+  <rect width="1000" height="1000" fill="#f4f7f5"/>
+  <text x="500" y="48" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#5a6b63">Full body — front</text>
+  <ellipse cx="500" cy="120" rx="70" ry="85" fill="#c5d5cc" stroke="#3d5248" stroke-width="4"/><path d="M360 210 Q500 180 640 210 L700 520 L620 520 L600 900 L520 900 L500 560 L480 900 L400 900 L380 520 L300 520 Z" fill="#c5d5cc" stroke="#3d5248" stroke-width="4"/>
+</svg>

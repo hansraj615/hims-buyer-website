@@ -1,0 +1,5 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Head / face">
+  <rect width="1000" height="1000" fill="#f4f7f5"/>
+  <text x="500" y="48" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#5a6b63">Head / face</text>
+  <ellipse cx="500" cy="480" rx="220" ry="280" fill="#d7e4dd" stroke="#3d5248" stroke-width="5"/><ellipse cx="420" cy="430" rx="28" ry="18" fill="#3d5248"/><ellipse cx="580" cy="430" rx="28" ry="18" fill="#3d5248"/><path d="M440 620 Q500 680 560 620" fill="none" stroke="#3d5248" stroke-width="6"/>
+</svg>
