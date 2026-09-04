@@ -206,7 +206,7 @@ export default function App() {
                 on a live demo tenant.
               </p>
               <div className="hero-actions">
-                <a className="btn btn-primary" href="mailto:sales@hims.example?subject=HIMS%20demo%20request">
+                <a className="btn btn-primary" href="mailto:hello@trinovustech.com?subject=HIMS%20demo%20request">
                   Email sales
                 </a>
                 <a className="btn btn-ghost" href="#live">
