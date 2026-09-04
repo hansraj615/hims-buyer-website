@@ -13,7 +13,13 @@ function quoteIdent(name: string): string {
 export async function initDb(): Promise<void> {
   const { host, port, user, password, database } = config.db
 
-  const admin = await mysql.createConnection({ host, port, user, password })
+  const admin = await mysql.createConnection({
+    host,
+    port,
+    user,
+    password,
+    connectTimeout: 8000,
+  })
   try {
     await admin.query(
       `CREATE DATABASE IF NOT EXISTS ${quoteIdent(database)}
@@ -36,6 +42,7 @@ export async function initDb(): Promise<void> {
     database,
     waitForConnections: true,
     connectionLimit: 10,
+    connectTimeout: 8000,
     namedPlaceholders: false,
   })
 

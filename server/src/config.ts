@@ -25,7 +25,7 @@ const smtpPort = envInt('SMTP_PORT', 465)
 
 export const config = {
   rootDir,
-  nodeEnv: env('NODE_ENV', 'development'),
+  nodeEnv: env('NODE_ENV', 'production'),
   port: envInt('PORT', 5181),
   host: env('HOST', '0.0.0.0'),
   corsOrigin: env('CORS_ORIGIN', 'http://127.0.0.1:5180'),
