@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useLocale } from '../i18n/useLocale'
 
 type Phase = 'idle' | 'aim' | 'press' | 'open' | 'hold'
 
@@ -12,6 +13,7 @@ const sequence: Array<{ phase: Phase; ms: number }> = [
 ]
 
 export function DoctorDemo() {
+  const { t } = useLocale()
   const reduceMotion = useReducedMotion()
   const [phase, setPhase] = useState<Phase>('idle')
 
@@ -43,11 +45,9 @@ export function DoctorDemo() {
   return (
     <section className="doctor-demo section" id="live">
       <div className="shell doctor-demo-head">
-        <p className="section-kicker">In the consulting room</p>
-        <h2 className="section-title">Watch a consult begin.</h2>
-        <p className="section-lead">
-          A doctor sits down, opens the queue, and starts the consultation — the clinical workspace unfolds without leaving the patient context.
-        </p>
+        <p className="section-kicker">{t.doctor.kicker}</p>
+        <h2 className="section-title">{t.doctor.title}</h2>
+        <p className="section-lead">{t.doctor.lead}</p>
       </div>
 
       <div className="shell doctor-stage">
@@ -77,7 +77,7 @@ export function DoctorDemo() {
                 <span className="token">T-12</span>
                 <span>Anita Rao</span>
                 <button className="start-btn" type="button">
-                  Start consultation
+                  {t.doctor.start}
                 </button>
               </div>
               <div className="queue-row">

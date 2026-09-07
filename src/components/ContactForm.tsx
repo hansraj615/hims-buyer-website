@@ -1,9 +1,15 @@
 import { useState, type FormEvent } from 'react'
+import { useLocale } from '../i18n/useLocale'
 import { submitLead } from '../lib/leads'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error'
 
-export function ContactForm() {
+type ContactFormProps = {
+  source?: string
+}
+
+export function ContactForm({ source = 'buyer-website' }: ContactFormProps) {
+  const { locale, t } = useLocale()
   const [status, setStatus] = useState<FormStatus>('idle')
   const [message, setMessage] = useState('')
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
@@ -25,27 +31,23 @@ export function ContactForm() {
         phone: String(data.get('phone') || '').trim() || undefined,
         message: String(data.get('message') || '').trim() || undefined,
         hp: String(data.get('hp') || '').trim() || undefined,
-        source: 'buyer-website',
+        source: `${source}:${locale}`,
       })
 
       form.reset()
       if (result.duplicate) {
         setStatus('duplicate')
-        setMessage(result.message || 'We already have your enquiry and will reply shortly.')
+        setMessage(result.message || t.form.duplicate)
         return
       }
 
       setStatus('success')
-      setMessage(result.message || 'Thanks — we received your enquiry and will get back to you.')
+      setMessage(result.message || t.form.thanks)
     } catch (error) {
       const fields = (error as { fields?: Record<string, string> }).fields
       setFieldErrors(fields ?? {})
       setStatus('error')
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : 'Could not send your enquiry. Please email hello@trinovustech.com.',
-      )
+      setMessage(error instanceof Error ? error.message : t.form.error)
     }
   }
 
@@ -56,32 +58,27 @@ export function ContactForm() {
   return (
     <form className="form" onSubmit={onSubmit}>
       <label className="form-hp" aria-hidden="true">
-        Leave blank
+        {t.form.hp}
         <input name="hp" tabIndex={-1} autoComplete="off" />
       </label>
-      <input name="name" placeholder="Your name" required autoComplete="name" disabled={disabled} />
+      <input name="name" placeholder={t.form.name} required autoComplete="name" disabled={disabled} />
       {fieldErrors.name ? <p className="form-field-error">{fieldErrors.name}</p> : null}
       <input
         name="hospital"
-        placeholder="Hospital / clinic name"
+        placeholder={t.form.hospital}
         required
         autoComplete="organization"
         disabled={disabled}
       />
       {fieldErrors.hospital ? <p className="form-field-error">{fieldErrors.hospital}</p> : null}
-      <input name="email" placeholder="Work email" required type="email" autoComplete="email" disabled={disabled} />
+      <input name="email" placeholder={t.form.email} required type="email" autoComplete="email" disabled={disabled} />
       {fieldErrors.email ? <p className="form-field-error">{fieldErrors.email}</p> : null}
-      <input name="phone" placeholder="Phone (optional)" type="tel" autoComplete="tel" disabled={disabled} />
+      <input name="phone" placeholder={t.form.phone} type="tel" autoComplete="tel" disabled={disabled} />
       {fieldErrors.phone ? <p className="form-field-error">{fieldErrors.phone}</p> : null}
-      <textarea
-        name="message"
-        placeholder="Beds, branches, modules you care about…"
-        rows={4}
-        disabled={disabled}
-      />
+      <textarea name="message" placeholder={t.form.message} rows={4} disabled={disabled} />
       {fieldErrors.message ? <p className="form-field-error">{fieldErrors.message}</p> : null}
       <button className="btn btn-primary" type="submit" disabled={disabled}>
-        {disabled ? 'Sending…' : 'Request demo details'}
+        {disabled ? t.form.sending : t.form.submit}
       </button>
       {message ? <p className={noteClass}>{message}</p> : null}
     </form>

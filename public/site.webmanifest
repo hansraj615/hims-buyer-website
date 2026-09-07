@@ -1,0 +1,17 @@
+{
+  "name": "HIMS by Trinovus Tech",
+  "short_name": "HIMS",
+  "description": "Hospital information management system for Indian hospitals, clinics and diagnostic centres.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f7f4ef",
+  "theme_color": "#0d6e6e",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

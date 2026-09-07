@@ -50,6 +50,14 @@ export function AdminPage() {
 
   useEffect(() => {
     document.title = 'HIMS leads'
+    const robots = document.head.querySelector('meta[name="robots"]')
+    if (robots) robots.setAttribute('content', 'noindex, nofollow')
+    else {
+      const tag = document.createElement('meta')
+      tag.setAttribute('name', 'robots')
+      tag.setAttribute('content', 'noindex, nofollow')
+      document.head.appendChild(tag)
+    }
     checkAdminSession()
       .then(async (ok) => {
         setAuthed(ok)

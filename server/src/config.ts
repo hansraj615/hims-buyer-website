@@ -28,6 +28,8 @@ export const config = {
   nodeEnv: env('NODE_ENV', 'production'),
   port: envInt('PORT', 5181),
   host: env('HOST', '0.0.0.0'),
+  siteUrl: env('SITE_URL', 'https://buyer-hims.trinovustech.com').replace(/\/$/, ''),
+  googleSiteVerification: env('GOOGLE_SITE_VERIFICATION'),
   corsOrigin: env('CORS_ORIGIN', 'http://127.0.0.1:5180'),
   publicDir: path.join(rootDir, 'dist'),
   db: {

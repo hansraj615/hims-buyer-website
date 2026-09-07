@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useLocale } from '../i18n/useLocale'
 
 type Phase =
   | 'idle'
@@ -50,6 +51,7 @@ function cursorTarget(phase: Phase): { left: string; top: string; scale: number 
 }
 
 export function BodyMapDemo() {
+  const { t } = useLocale()
   const reduceMotion = useReducedMotion()
   const [phase, setPhase] = useState<Phase>('idle')
 
@@ -93,12 +95,9 @@ export function BodyMapDemo() {
   return (
     <section className="bodymap-demo section" id="bodymap">
       <div className="shell bodymap-demo-head">
-        <p className="section-kicker">Clinical photography</p>
-        <h2 className="section-title">Capture. Mark. Document.</h2>
-        <p className="section-lead">
-          From the real consultation workspace — open a consented patient photo or catalog silhouette, place markers,
-          and fill observation details without leaving the visit.
-        </p>
+        <p className="section-kicker">{t.bodyMap.kicker}</p>
+        <h2 className="section-title">{t.bodyMap.title}</h2>
+        <p className="section-lead">{t.bodyMap.lead}</p>
       </div>
 
       <div className="shell bodymap-stage">
@@ -123,7 +122,7 @@ export function BodyMapDemo() {
                 <span>Hans Raj · DEMOHIMS-ENC-000004</span>
               </div>
               <button className={`upload-chip${phase === 'aimUpload' || phase === 'clickUpload' ? ' is-focus' : ''}`} type="button">
-                Upload photo
+                {t.bodyMap.upload}
               </button>
             </div>
 
