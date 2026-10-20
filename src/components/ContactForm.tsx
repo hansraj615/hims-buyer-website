@@ -46,7 +46,12 @@ export function ContactForm({ source = 'buyer-website' }: ContactFormProps) {
       const pixel = (window as Window & {
         oaiq?: (...args: unknown[]) => void
       }).oaiq
-      pixel?.('measure', 'lead_created', { type: 'customer_action' })
+      try {
+        pixel?.('measure', 'lead_created', { type: 'customer_action' })
+      } catch (error) {
+        // A measurement failure must never turn a saved enquiry into a form error.
+        console.warn('Lead conversion measurement failed', error)
+      }
 
       setStatus('success')
       setMessage(result.message || t.form.thanks)
