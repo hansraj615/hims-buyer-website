@@ -41,6 +41,13 @@ export function ContactForm({ source = 'buyer-website' }: ContactFormProps) {
         return
       }
 
+      // Count only successfully accepted, non-duplicate enquiries as ad leads.
+      // The OpenAI Pixel is initialized once in index.html.
+      const pixel = (window as Window & {
+        oaiq?: (...args: unknown[]) => void
+      }).oaiq
+      pixel?.('measure', 'lead_created', { type: 'customer_action' })
+
       setStatus('success')
       setMessage(result.message || t.form.thanks)
     } catch (error) {
