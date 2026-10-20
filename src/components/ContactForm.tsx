@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useLocale } from '../i18n/useLocale'
 import { submitLead } from '../lib/leads'
+import { measureAcceptedLead } from '../lib/openaiPixel'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error'
 
@@ -41,18 +42,7 @@ export function ContactForm({ source = 'buyer-website' }: ContactFormProps) {
         return
       }
 
-      // Count only successfully accepted, non-duplicate enquiries as ad leads.
-      // The OpenAI Pixel is initialized once in index.html.
-      const pixel = (window as Window & {
-        oaiq?: (...args: unknown[]) => void
-      }).oaiq
-      try {
-        pixel?.('measure', 'lead_created', { type: 'customer_action' })
-      } catch (error) {
-        // A measurement failure must never turn a saved enquiry into a form error.
-        console.warn('Lead conversion measurement failed', error)
-      }
-
+      measureAcceptedLead(result)
       setStatus('success')
       setMessage(result.message || t.form.thanks)
     } catch (error) {
