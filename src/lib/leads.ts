@@ -32,7 +32,7 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResponse> {
     throw new Error('Could not reach the sales desk. Please try again.')
   }
 
-  if (!response.ok && !data.ok) {
+  if (!response.ok || !data.ok) {
     const error = new Error(data.message || 'Could not send your enquiry.') as Error & {
       fields?: Record<string, string>
       status: number

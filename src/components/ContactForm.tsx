@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useLocale } from '../i18n/useLocale'
 import { submitLead } from '../lib/leads'
+import { measureAcceptedLead } from '../lib/openaiPixel'
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'duplicate' | 'error'
 
@@ -41,6 +42,7 @@ export function ContactForm({ source = 'buyer-website' }: ContactFormProps) {
         return
       }
 
+      measureAcceptedLead(result)
       setStatus('success')
       setMessage(result.message || t.form.thanks)
     } catch (error) {
